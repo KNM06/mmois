@@ -1,0 +1,10 @@
+village_polevaya
+=> nrel_main_idtf:
+    [Деревня Полевая] (* <- lang_ru;; *);
+    [Village Polevaya] (* <- lang_en;; *);
+
+<- concept_village;
+
+=> nrel_population: [600];
+=> nrel_coordinate_x: [9.0];
+=> nrel_coordinate_y: [4.0];;

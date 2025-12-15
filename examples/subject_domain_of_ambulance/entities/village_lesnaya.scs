@@ -1,0 +1,10 @@
+village_lesnaya
+=> nrel_main_idtf:
+    [Деревня Лесная] (* <- lang_ru;; *);
+    [Village Lesnaya] (* <- lang_en;; *);
+
+<- concept_village;
+
+=> nrel_population: [400];
+=> nrel_coordinate_x: [5.0];
+=> nrel_coordinate_y: [8.0];;

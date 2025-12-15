@@ -1,0 +1,11 @@
+action_find_optimal_station
+<- sc_node_class;
+<- concept_class;
+=> nrel_main_idtf:
+    [действие поиска оптимальной станции]
+    (* <- lang_ru;; *);
+    [action to find optimal station]
+    (* <- lang_en;; *);
+
+<= nrel_inclusion:
+    concept_information_action;;

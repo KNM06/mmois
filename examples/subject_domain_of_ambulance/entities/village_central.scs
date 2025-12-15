@@ -1,0 +1,10 @@
+village_central
+=> nrel_main_idtf:
+    [Село Центральное] (* <- lang_ru;; *);
+    [Village Central] (* <- lang_en;; *);
+
+<- concept_village;
+
+=> nrel_population: [2500];
+=> nrel_coordinate_x: [7.5];
+=> nrel_coordinate_y: [6.0];;

@@ -1,0 +1,8 @@
+nrel_optimal_location
+<- sc_node_non_role_relation;
+<- concept_non_role_relation;
+=> nrel_main_idtf:
+    [оптимальное расположение*]
+    (* <- lang_ru;; *);
+    [optimal location*]
+    (* <- lang_en;; *);;

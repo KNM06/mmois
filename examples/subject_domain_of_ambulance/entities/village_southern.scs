@@ -1,0 +1,10 @@
+village_southern
+=> nrel_main_idtf:
+    [Село Южное] (* <- lang_ru;; *);
+    [Village Southern] (* <- lang_en;; *);
+
+<- concept_village;
+
+=> nrel_population: [1800];
+=> nrel_coordinate_x: [11.0];
+=> nrel_coordinate_y: [2.0];;

@@ -1,0 +1,12 @@
+concept_village
+<- sc_node_class;
+<- concept_class;
+=> nrel_main_idtf:
+    [населённый пункт]
+    (* <- lang_ru;; *);
+    [settlement]
+    (* <- lang_en;; *);
+
+=> nrel_idtf:
+    [село или деревня]
+    (* <- lang_ru;; *);;

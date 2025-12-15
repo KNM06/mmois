@@ -1,0 +1,10 @@
+village_eastern
+=> nrel_main_idtf:
+    [Село Восточное] (* <- lang_ru;; *);
+    [Village Eastern] (* <- lang_en;; *);
+
+<- concept_village;
+
+=> nrel_population: [1600];
+=> nrel_coordinate_x: [13.0];
+=> nrel_coordinate_y: [7.0];;

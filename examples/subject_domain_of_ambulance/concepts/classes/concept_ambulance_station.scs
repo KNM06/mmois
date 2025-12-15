@@ -1,0 +1,8 @@
+concept_ambulance_station
+<- sc_node_class;
+<- concept_class;
+=> nrel_main_idtf:
+    [станция скорой помощи]
+    (* <- lang_ru;; *);
+    [ambulance station]
+    (* <- lang_en;; *);;

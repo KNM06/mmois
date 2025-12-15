@@ -1,0 +1,10 @@
+village_rechnaya
+=> nrel_main_idtf:
+    [Деревня Речная] (* <- lang_ru;; *);
+    [Village Rechnaya] (* <- lang_en;; *);
+
+<- concept_village;
+
+=> nrel_population: [350];
+=> nrel_coordinate_x: [6.0];
+=> nrel_coordinate_y: [2.0];;

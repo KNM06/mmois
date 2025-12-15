@@ -1,0 +1,13 @@
+subject_domain_of_ambulance
+=> nrel_main_idtf:
+    [Предметная область размещения станции скорой помощи] (* <- lang_ru;; *);
+    [Subject domain of ambulance station placement] (* <- lang_en;; *);
+
+<- concept_subject_domain;
+-> rrel_maximum_studied_object_class:
+    concept_settlement;
+-> rrel_explored_relation:
+    nrel_distance;
+    nrel_population;
+    nrel_coordinate_x;
+    nrel_coordinate_y;;
