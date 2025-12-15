@@ -1,0 +1,11 @@
+nrel_graph_center
+<- sc_node_non_role_relation;
+<- concept_non_role_relation;
+=> nrel_main_idtf:
+    [центр графа*]
+    (* <- lang_ru;; *);
+    [graph center*]
+    (* <- lang_en;; *);
+
+=> nrel_first_domain: action_find_graph_center; // Результат действия
+=> nrel_second_domain: concept_village;;

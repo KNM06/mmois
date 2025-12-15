@@ -9,4 +9,4 @@ class AmbulanceModule : public ScModule
 {
 };
 
-} // namespace ambulance_module
+} 

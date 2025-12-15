@@ -1,4 +1,4 @@
-#include "find_station_agent.hpp"
+#include "find_optimal_agent.hpp" // Исправлен хедер
 
 #include <cmath>
 #include <limits>
@@ -7,14 +7,13 @@
 
 using namespace ambulance_module;
 
-ScAddr FindStationAgent::GetActionClass() const
+ScAddr FindOptimalAgent::GetActionClass() const
 {
   return AmbulanceKeynodes::action_find_optimal_station;
 }
 
-ScResult FindStationAgent::DoProgram(ScAction & action)
+ScResult FindOptimalAgent::DoProgram(ScAction & action)
 {
-  // ИСПРАВЛЕНИЕ: ScAction приводится к ScAddr неявно
   ScAddr const actionNode = action;
   
   struct VillageData

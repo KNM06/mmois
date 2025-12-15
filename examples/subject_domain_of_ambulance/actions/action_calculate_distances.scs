@@ -1,0 +1,11 @@
+action_calculate_distances
+<- sc_node_class;
+<- concept_class;
+=> nrel_main_idtf:
+    [действие расчета матрицы расстояний]
+    (* <- lang_ru;; *);
+    [action to calculate distance matrix]
+    (* <- lang_en;; *);
+
+<= nrel_inclusion:
+    concept_information_action;;

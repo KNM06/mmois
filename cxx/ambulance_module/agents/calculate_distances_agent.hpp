@@ -7,7 +7,7 @@
 namespace ambulance_module
 {
 
-class FindStationAgent : public ScActionInitiatedAgent
+class CalculateDistancesAgent : public ScActionInitiatedAgent
 {
 public:
   ScAddr GetActionClass() const override;
@@ -15,4 +15,4 @@ public:
   ScResult DoProgram(ScAction & action) override;
 };
 
-} // namespace ambulance_module
+} 
