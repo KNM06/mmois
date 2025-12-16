@@ -4,5 +4,5 @@ nrel_problem_zone
 => nrel_main_idtf:
     [проблемная зона*] (* <- lang_ru;; *);
     [problem zone*] (* <- lang_en;; *);
-=> nrel_first_domain: action_find_problem_zones;
+=> nrel_first_domain: concept_action;
 => nrel_second_domain: concept_village;;

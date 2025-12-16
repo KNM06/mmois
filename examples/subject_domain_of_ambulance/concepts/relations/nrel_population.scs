@@ -9,5 +9,5 @@ nrel_population
     [population*]
     (* <- lang_en;; *);
 
-=> nrel_first_domain: concept_settlement;
+=> nrel_first_domain: concept_village;
 => nrel_second_domain: concept_number;;

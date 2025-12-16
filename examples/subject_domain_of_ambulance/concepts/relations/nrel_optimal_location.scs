@@ -1,8 +1,13 @@
 nrel_optimal_location
 <- sc_node_non_role_relation;
 <- concept_non_role_relation;
+<- concept_binary_relation;
+<- concept_oriented_relation;
+
 => nrel_main_idtf:
-    [оптимальное расположение*]
-    (* <- lang_ru;; *);
-    [optimal location*]
-    (* <- lang_en;; *);;
+    [оптимальное расположение*] (* <- lang_ru;; *);
+    [optimal location*] (* <- lang_en;; *);
+
+=> nrel_first_domain: concept_action;  
+=> nrel_second_domain: concept_village;;
+

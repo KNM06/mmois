@@ -1,6 +1,7 @@
 action_find_optimal_station
 <- sc_node_class;
 <- concept_class;
+<- concept_action;
 => nrel_main_idtf:
     [действие поиска оптимальной станции]
     (* <- lang_ru;; *);

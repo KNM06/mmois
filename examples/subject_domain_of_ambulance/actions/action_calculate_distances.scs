@@ -1,5 +1,6 @@
 action_calculate_distances
 <- sc_node_class;
+<- concept_action;
 <- concept_class;
 => nrel_main_idtf:
     [действие расчета матрицы расстояний]

@@ -1,5 +1,6 @@
 action_find_graph_center
 <- sc_node_class;
+<- concept_action;
 <- concept_class;
 => nrel_main_idtf:
     [действие поиска центра графа]

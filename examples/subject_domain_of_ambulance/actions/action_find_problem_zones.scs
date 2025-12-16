@@ -1,6 +1,7 @@
 action_find_problem_zones
 <- sc_node_class;
 <- concept_class;
+<- concept_action;
 => nrel_main_idtf:
     [действие поиска проблемных зон] (* <- lang_ru;; *);
     [action to find problem zones] (* <- lang_en;; *);
