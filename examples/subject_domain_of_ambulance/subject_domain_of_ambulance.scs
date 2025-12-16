@@ -5,9 +5,12 @@ subject_domain_of_ambulance
 
 <- concept_subject_domain;
 -> rrel_maximum_studied_object_class:
-    concept_settlement;
+    concept_ambulance_station;
 -> rrel_explored_relation:
     nrel_distance;
+    nrel_optimal_location;
+    nrel_graph_center;
+    nrel_eccentricity;
     nrel_population;
     nrel_coordinate_x;
     nrel_coordinate_y;;
