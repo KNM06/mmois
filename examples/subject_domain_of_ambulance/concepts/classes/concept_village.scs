@@ -4,7 +4,7 @@ concept_village
 => nrel_main_idtf:
     [населённый пункт]
     (* <- lang_ru;; *);
-    [settlement]
+    [village]
     (* <- lang_en;; *);
 
 => nrel_idtf:
