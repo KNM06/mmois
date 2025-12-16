@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <numeric>
-#include <tuple> // Нужно для работы с tuple
+#include <tuple> 
 
 using namespace ambulance_module;
 
@@ -19,21 +19,22 @@ ScResult FindProblemZonesAgent::DoProgram(ScAction & action)
   ScAddr optimalStation;
   bool stationFound = false;
 
-  // Ищем любую дугу, помеченную nrel_optimal_location
+  // Ищем любую дугу помеченную как nrel_optimal_location
   ScIterator3Ptr itOpt = m_context.CreateIterator3(
-      AmbulanceKeynodes::nrel_optimal_location,
-      ScType::ConstPermPosArc,
-      ScType::Unknown // Это дуга между Action и Village
+      AmbulanceKeynodes::nrel_optimal_location,//отношение "Оптимальное расположение"
+      ScType::ConstPermPosArc,//принадлежности
+      ScType::Unknown //неизвестная дуга между action и village, котрая помечена отношением
   );
 
   while (itOpt->Next())
   {
-      ScAddr resultArc = itOpt->Get(2);
+      ScAddr resultArc = itOpt->Get(2);//адрес дуги
       
-      // ИСПРАВЛЕНИЕ 1: Новый API возвращает tuple (source, target)
+      //кортеж 
       auto [source, target] = m_context.GetConnectorIncidentElements(resultArc);
+      // source - действие, target - найденная оптимальная деревня
       
-      // ИСПРАВЛЕНИЕ 2: HelperCheckEdge устарел, используем CheckConnector
+      //проверяем что target это деревня 
       if (m_context.CheckConnector(
           AmbulanceKeynodes::concept_village, target, ScType::ConstPermPosArc)) 
       {
@@ -49,7 +50,7 @@ ScResult FindProblemZonesAgent::DoProgram(ScAction & action)
       return action.FinishWithError();
   }
 
-  // 2. Считываем координаты оптимальной станции
+  //считываем координаты оптимальной станции
   auto GetCoord = [&](ScAddr const & node, ScAddr const & rel) -> double {
       ScIterator5Ptr it = m_context.CreateIterator5(
           node, ScType::ConstCommonArc, ScType::NodeLink, ScType::ConstPermPosArc, rel);
@@ -64,7 +65,7 @@ ScResult FindProblemZonesAgent::DoProgram(ScAction & action)
   double optX = GetCoord(optimalStation, AmbulanceKeynodes::nrel_coordinate_x);
   double optY = GetCoord(optimalStation, AmbulanceKeynodes::nrel_coordinate_y);
 
-  // 3. Считываем остальные деревни
+  //считываем остальные деревни
   struct VillageDist { ScAddr addr; double dist; };
   std::vector<VillageDist> list;
   double totalDist = 0;
@@ -74,34 +75,34 @@ ScResult FindProblemZonesAgent::DoProgram(ScAction & action)
   
   while(itV->Next())
   {
-      ScAddr v = itV->Get(2);
+      ScAddr v = itV->Get(2);//адрес деревни
       if (v == optimalStation) continue;
-
+//получаем координаты
       double x = GetCoord(v, AmbulanceKeynodes::nrel_coordinate_x);
       double y = GetCoord(v, AmbulanceKeynodes::nrel_coordinate_y);
-      
+      //считаем дистанцию между оптимальной и текущей
       double d = std::hypot(x - optX, y - optY);
-      list.push_back({v, d});
-      totalDist += d;
+      list.push_back({v, d});//добавляем в вектор хранения адресов и дистанций
+      totalDist += d;//общая сумма расстояний
   }
 
   if (list.empty()) return action.FinishSuccessfully();
 
-  double avgDist = totalDist / list.size();
-  double threshold = avgDist * 1.5; // Критерий "плохой" зоны
+  double avgDist = totalDist / list.size();//среднее расстояние для деревень
+  double threshold = avgDist * 1.5; //критерий плохой зоны
 
   m_logger.Info("Average distance: " + std::to_string(avgDist) + 
                 ", Threshold: " + std::to_string(threshold));
 
   ScStructure resultStruct = m_context.GenerateStructure();
 
-  // 4. Помечаем проблемные зоны
-  for (const auto& item : list)
+  //помечаем проблемные зоны
+  for (const auto& item : list)//проходимся по вектору с деревнями и дистанциями 
   {
       if (item.dist > threshold)
       {
-          ScAddr resArc = m_context.GenerateConnector(ScType::ConstCommonArc, actionNode, item.addr);
-          m_context.GenerateConnector(ScType::ConstPermPosArc, AmbulanceKeynodes::nrel_problem_zone, resArc);
+          ScAddr resArc = m_context.GenerateConnector(ScType::ConstCommonArc, actionNode, item.addr);//создаем дугу между действием и далекой деревней
+          m_context.GenerateConnector(ScType::ConstPermPosArc, AmbulanceKeynodes::nrel_problem_zone, resArc);//помечаем дугу как проблемная зона
           resultStruct << item.addr << resArc << AmbulanceKeynodes::nrel_problem_zone;
           
           m_logger.Info("Problem zone found! Distance: " + std::to_string(item.dist));

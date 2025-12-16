@@ -26,12 +26,14 @@ ScResult FindOptimalAgent::DoProgram(ScAction & action)
 
   std::vector<VillageData> villages;
   ScAddrVector allVillageNodes;
-
+    //ищем деревни
   ScIterator3Ptr const it3 = m_context.CreateIterator3(
+  //класс деревень, дуга принадлежности, неизвестная деревня
       AmbulanceKeynodes::concept_village,
       ScType::ConstPermPosArc,
       ScType::Unknown);
 
+//записываем адреса
   while (it3->Next())
   {
     ScAddr const villageAddr = it3->Get(2);
@@ -53,11 +55,11 @@ ScResult FindOptimalAgent::DoProgram(ScAction & action)
 
     auto GetValue = [&](ScAddr const & rel) -> double {
       ScIterator5Ptr const it5 = m_context.CreateIterator5(
-          villageAddr,
-          ScType::ConstCommonArc,
-          ScType::NodeLink,
-          ScType::ConstPermPosArc,
-          rel);
+          villageAddr,//деревня
+          ScType::ConstCommonArc, //дуга общего вида
+          ScType::NodeLink, //ссылка на число
+          ScType::ConstPermPosArc,//пинадлежности
+          rel);//отношение
 
       if (it5->Next())
       {
@@ -99,20 +101,23 @@ ScResult FindOptimalAgent::DoProgram(ScAction & action)
   ScAddr bestVillageAddr;
   bool found = false;
 
+//пережираем все деревни на кандидата для станции
   for (const auto & candidate : villages)
   {
     double currentScore = 0.0;
 
     for (const auto & target : villages)
     {
+    //ищем дистанцию
       double dist = std::hypot(candidate.x - target.x, candidate.y - target.y);
-      currentScore += dist * target.population;
+      currentScore += dist * target.population;//счет = дистанция * кол-во людей
     }
 
+//сравниваем с мин счетом
     if (currentScore < minScore)
     {
       minScore = currentScore;
-      bestVillageAddr = candidate.addr;
+      bestVillageAddr = candidate.addr;//записываем текущего побидителя
       found = true;
     }
   }
@@ -124,15 +129,17 @@ ScResult FindOptimalAgent::DoProgram(ScAction & action)
 
   ScStructure resultStructure = m_context.GenerateStructure();
 
+//создаем дугу от действия к победителю
   ScAddr const resultArc = m_context.GenerateConnector(
-      ScType::ConstCommonArc,
-      actionNode,
-      bestVillageAddr);
+      ScType::ConstCommonArc,//общая дуга
+      actionNode,//действие
+      bestVillageAddr);//победитель
 
+//помечаем дугу как оптимальное решение
   ScAddr const relArc = m_context.GenerateConnector(
-      ScType::ConstPermPosArc,
-      AmbulanceKeynodes::nrel_optimal_location,
-      resultArc);
+      ScType::ConstPermPosArc,//принадлежности
+      AmbulanceKeynodes::nrel_optimal_location,//отношение оптимального положения
+      resultArc);//прошлая дуга
 
   resultStructure << bestVillageAddr << resultArc << relArc << AmbulanceKeynodes::nrel_optimal_location;
 
